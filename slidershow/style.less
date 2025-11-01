@@ -4,486 +4,489 @@
 @base: white;
 
 body {
-    background-color: black;
-    color: @base;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    margin: 0;
+  background-color: black;
+  color: @base;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 0;
 }
 
 main {
-    position: relative;
-    // zoom:0.05
+  position: relative;
+  // zoom:0.05
 }
 
 menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15%;
 
-    position: fixed;
-    left: 5%;
-    width: 90%;
-    height: 90%;
-    font-size: 2vw;
+  position: fixed;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  font-size: 2vw;
 
-    div {
-        text-align: center;
+  div {
+    text-align: center;
+  }
+
+  #start {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+  }
+
+  #drop {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  #defaults {
+    margin-top: 30px;
+    text-align: left;
+    font-size: 1vw;
+  }
+
+  #progress {
+    margin-top: 10px;
+
+    .circle-progress-value {
+      stroke-width: 6px;
+      stroke: hsl(320, 80%, 60%);
+      stroke-dasharray: 4 1;
     }
 
-    #start {
-        width: 100px;
-        height: 100px;
-        font-size: 50px;
+    .circle-progress-circle {
+      stroke-width: 6px;
+      stroke: #eee;
     }
 
-    #drop {
-        margin-top: 20px;
-        font-weight: bold;
+    .circle-progress-text {
+      font-weight: bold;
+      fill: hsl(180, 80%, 47%);
     }
-
-    #defaults {
-        margin-top: 30px;
-        text-align: left;
-        font-size: 1vw;
-    }
-
-    #progress {
-        margin-top: 10px;
-
-        .circle-progress-value {
-            stroke-width: 6px;
-            stroke: hsl(320, 80%, 60%);
-            stroke-dasharray: 4 1;
-        }
-
-        .circle-progress-circle {
-            stroke-width: 6px;
-            stroke: #eee;
-        }
-
-        .circle-progress-text {
-            font-weight: bold;
-            fill: hsl(180, 80%, 47%);
-        }
-    }
+  }
 }
 
 #aux_window {
+  display: flex;
+
+  #slide-wrapper {
+    text-align: center;
     display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    width: 50vw;
 
-    #slide-wrapper {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        max-height: 100vh;
-        width: 50vw;
+    > frame-preview {
+      // current frame
+      height: 60vh;
 
-        >frame-preview {
-            // current frame
-            height: 60vh;
+      > * {
+        scale: 0.5;
+      }
 
-            >* {
-                scale: 0.5;
-            }
+      .current-step:before {
+        // highlight step position in the main frame
+        content: "";
+        position: absolute;
+        margin-left: -60px;
+        margin-top: 15x;
 
-            .current-step:before {
-                // highlight step position in the main frame
-                content: '';
-                position: absolute;
-                margin-left: -60px;
-                margin-top: 15x;
-
-                height: 25px;
-                width: 25px;
-                background-color: red;
-                border-radius: 50%;
-                display: inline-block;
-            }
-        }
-
-        > :nth-child(2) {
-            // the next frame
-            max-height: 30vh;
-
-            frame-preview>* {
-                scale: 0.3;
-            }
-        }
+        height: 25px;
+        width: 25px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+      }
     }
 
     > :nth-child(2) {
-        // notes
-        width: 50vw;
-        padding-top: 5px;
+      // the next frame
+      max-height: 30vh;
+
+      frame-preview > * {
+        scale: 0.3;
+      }
     }
+  }
+
+  > :nth-child(2) {
+    // notes
+    width: 50vw;
+    padding-top: 5px;
+  }
 }
 
 frame-preview {
+  > article,
+  > article-map {
+    overflow: auto;
+    display: block; // by default, article is hidden; overwrite this for previews
+    transform-origin: 0 0;
 
-    >article,
-    >article-map {
-        overflow: auto;
-        display: block; // by default, article is hidden; overwrite this for previews
-        transform-origin: 0 0;
-
-        &.prevent-animation-important * {
-            animation: unset !important;
-        }
-
-        [data-step].step-not-yet-visible {
-            // Aux window uses this to display elements hidden in the main window
-            opacity: .5;
-            border: 1px dotted red;
-            // so that the opacity could be seen when animation ended on opacity:0
-            animation-fill-mode: unset;
-        }
-
-        &.video-thumbnail:before {
-            content: '\1f3a5';
-            position: absolute;
-            width: 100%;
-            margin-top: 20%;
-            font-size: 300px;
-            text-shadow: 0 0 100px @base;
-        }
+    &.prevent-animation-important * {
+      animation: unset !important;
     }
 
-    article-map:before {
-        content: '🗺';
-        position: absolute;
-        margin-top: 20%;
-        font-size: 300px;
-        text-shadow: 0 0 100px @base;
+    [data-step].step-not-yet-visible {
+      // Aux window uses this to display elements hidden in the main window
+      opacity: 0.5;
+      border: 1px dotted red;
+      // so that the opacity could be seen when animation ended on opacity:0
+      animation-fill-mode: unset;
     }
+
+    &.video-thumbnail:before {
+      content: "\1f3a5";
+      position: absolute;
+      width: 100%;
+      margin-top: 20%;
+      font-size: 300px;
+      text-shadow: 0 0 100px @base;
+    }
+  }
+
+  article-map:before {
+    content: "🗺";
+    position: absolute;
+    margin-top: 20%;
+    font-size: 300px;
+    text-shadow: 0 0 100px @base;
+  }
 }
 
 .importable-target {
-    >* {
-        // do not blur the after effect
-        filter: blur(10px);
-    }
+  > * {
+    // do not blur the after effect
+    filter: blur(10px);
+  }
 
-    &::after,
-    article::after {
-        content: 'Import here';
-        display: block;
-        position: absolute;
-        background-color: @highlight;
-        color: black;
-        margin: 15px;
-        padding: 10px;
-        border-radius: 15px;
-    }
+  &::after,
+  article::after {
+    content: "Import here";
+    display: block;
+    position: absolute;
+    background-color: @highlight;
+    color: black;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 15px;
+  }
 }
 
 #hud {
-    position: fixed; // note that when position:fixed does not work when moving body
-    z-index: 10;
+  position: fixed; // note that when position:fixed does not work when moving body
+  z-index: 10;
 
-    >* {
-        position: fixed;
+  > * {
+    position: fixed;
+  }
+
+  .alwaysHidden {
+    // some controles
+    position: fixed;
+    bottom: -100px;
+  }
+
+  #control-icons {
+    display: flex;
+    gap: 10px;
+    user-select: none;
+
+    right: 3vw;
+    top: 3vh;
+
+    > :hover {
+      cursor: pointer;
+      text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa;
+    }
+  }
+
+  #hud-menu {
+    display: none; // hidden by default
+    right: 3vw;
+    top: 6vh;
+    text-align: right;
+    z-index: 1; // placed over the thumbnails grid
+
+    button {
+      font-size: 100%;
+
+      &[data-role="magnify-little"] {
+        text-shadow: 0 0 darkcyan;
+      }
+
+      &[data-role="crossed"] {
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  #hud-fileinfo {
+    right: 3vw;
+    bottom: 10vw;
+    text-align: right;
+
+    #hud-gps {
+      cursor: pointer;
     }
 
-    .alwaysHidden {
-        // some controles
-        position: fixed;
-        bottom: -100px;
+    #hud-tag {
+      background-color: @control;
+      font-size: 300%;
+    }
+  }
+
+  #hud-thumbnails,
+  #hud-grid {
+    display: flex;
+
+    width: 100vw;
+
+    &#hud-thumbnails {
+      // thumbnail ribbon
+      height: 30vh;
+      bottom: 0;
+      gap: 1px;
     }
 
-    #control-icons {
-        display: flex;
-        gap: 10px;
-        user-select: none;
+    &#hud-grid {
+      // thumbnail grid
+      flex-wrap: wrap;
+      overflow: auto;
+      height: 100vh;
+      // background-color: rgba(255, 255, 255, 0.4);
+      background: black;
 
-        right: 3vw;
-        top: 3vh;
+      // bottom: 0;
+      // top: 0;
+      > frame-preview {
+        width: 19vw;
+        height: 19vh;
+      }
 
-        > :hover {
-            cursor: pointer;
-            text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
-        }
-    }
-
-    #hud-menu {
-        display: none; // hidden by default
-        right: 3vw;
-        top: 6vh;
-        text-align: right;
-        z-index: 1; // placed over the thumbnails grid
+      section-controller {
+        margin: 10px;
+        text-align: center;
+        flex-basis: 100%;
 
         button {
-            font-size: 100%;
-
-            &[data-role="magnify-little"] {
-                text-shadow: 0 0 darkcyan;
-            }
-
-            &[data-role="crossed"] {
-                text-decoration: line-through;
-            }
+          display: inline-block;
+          background-color: @control;
+          color: white;
+          padding: 10px;
+          border-radius: 15px;
         }
+
+        &.dragging-target {
+          box-shadow: inset 0px 0px 5px 0px @highlight;
+        }
+      }
     }
 
-    #hud-fileinfo {
-        right: 3vw;
-        bottom: 10vw;
-        text-align: right;
+    > frame-preview {
+      text-align: center;
+      position: relative;
+      width: 30vw;
+      height: 30vh;
+      color: black;
+      background-color: lightgray;
 
-        #hud-gps {
-            cursor: pointer;
-        }
+      &.current {
+        filter: drop-shadow(16px 16px 20px @soft-highlight);
+        color: white;
+        box-shadow: 0px 5px 3px 5px darkgray;
+        background-color: @soft-highlight;
+      }
 
-        #hud-tag {
-            background-color: @control;
-            font-size: 300%;
-        }
-    }
-
-
-    #hud-thumbnails,
-    #hud-grid {
-        display: flex;
-
-        width: 100vw;
-
-        &#hud-thumbnails {
-            // thumbnail ribbon
-            height: 30vh;
-            bottom: 0;
-            gap: 1px;
-        }
-
-        &#hud-grid {
-            // thumbnail grid
-            flex-wrap: wrap;
-            overflow: auto;
-            height: 100vh;
-            // background-color: rgba(255, 255, 255, 0.4);
-            background: black;
-
-            // bottom: 0;
-            // top: 0;
-            >frame-preview {
-                width: 19vw;
-                height: 19vh;
-            }
-
-            section-controller {
-                margin: 10px;
-                text-align: center;
-                flex-basis: 100%;
-
-                button {
-                    display: inline-block;
-                    background-color: @control;
-                    color: white;
-                    padding: 10px;
-                    border-radius: 15px;
-                }
-
-                &.dragging-target {
-                    box-shadow: inset 0px 0px 5px 0px @highlight;
-                }
-
-            }
-        }
-
-        >frame-preview {
-            text-align: center;
-            position: relative;
-            width: 30vw;
-            height: 30vh;
-            color: black;
-            background-color: lightgray;
-
-            &.current {
-                filter: drop-shadow(16px 16px 20px @soft-highlight);
-                color: white;
-                box-shadow: 0px 5px 3px 5px darkgray;
-                background-color: @soft-highlight;
-            }
-
-            .delete {
-                cursor: pointer;
-                position: absolute;
-                right: 0;
-            }
-
-            .tag {
-                position: absolute;
-                left: 5px;
-                background-color: @control;
-                font-size: 300%;
-                color: @base;
-                padding: 0 5px;
-            }
-
-            >article,
-            >article-map {
-                scale: 0.3;
-            }
-
-            &.dragging-target {
-                &.dragging-before {
-                    box-shadow: inset 20px 0px 5px 0px @highlight;
-                }
-
-                &.dragging-after {
-                    box-shadow: inset -20px 0px 5px 0px @highlight;
-                }
-            }
-
-            &.ui-draggable-dragging {
-                // changing frame order
-                scale: 0.75;
-                width: unset;
-                height: unset;
-                box-shadow: unset;
-                z-index: 10;
-            }
-        }
-    }
-
-    #hud-properties {
-        // display: flex;
-        max-width: 20vw;
-        max-height: 70vh;
-        top: 0;
+      .delete {
+        cursor: pointer;
+        position: absolute;
         right: 0;
-        background-color: lightgray;
+      }
 
-        color: black;
-        padding: 10px;
-        overflow: auto;
+      .tag {
+        position: absolute;
+        left: 5px;
+        background-color: @control;
+        font-size: 300%;
+        color: @base;
+        padding: 0 5px;
+      }
 
-        label {
-            cursor: help;
+      > article,
+      > article-map {
+        scale: 0.3;
+      }
+
+      &.dragging-target {
+        &.dragging-before {
+          box-shadow: inset 20px 0px 5px 0px @highlight;
         }
 
-        div {
-            .point-wrapper .hud-point {
-                display: block;
-                margin-bottom: 2px;
-            }
-
-            .hud-point {
-                // common for points and the new point button
-                display: inline-block;
-
-                >span {
-                    cursor: pointer;
-                    display: inline-block;
-                    background-color: lightyellow;
-                    border: 1px solid gray;
-                    border-radius: 5px;
-                    padding: 3px;
-                }
-
-                &.active>span {
-                    background-color: @highlight;
-                }
-            }
+        &.dragging-after {
+          box-shadow: inset -20px 0px 5px 0px @highlight;
         }
+      }
+
+      &.ui-draggable-dragging {
+        // changing frame order
+        scale: 0.75;
+        width: unset;
+        height: unset;
+        box-shadow: unset;
+        z-index: 10;
+      }
     }
+  }
+
+  #hud-properties {
+    // display: flex;
+    max-width: 20vw;
+    max-height: 70vh;
+    top: 0;
+    right: 0;
+    background-color: lightgray;
+
+    color: black;
+    padding: 10px;
+    overflow: auto;
+
+    label {
+      cursor: help;
+    }
+
+    div {
+      .point-wrapper .hud-point {
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .hud-point {
+        // common for points and the new point button
+        display: inline-block;
+
+        > span {
+          cursor: pointer;
+          display: inline-block;
+          background-color: lightyellow;
+          border: 1px solid gray;
+          border-radius: 5px;
+          padding: 3px;
+        }
+
+        &.active > span {
+          background-color: @highlight;
+        }
+      }
+    }
+  }
 }
 
 #map-hud {
-    position: fixed;
-    height: 10vh;
-    min-height: 300px;
-    min-width: 300px;
-    width: 10vw;
-    top: 3vh;
-    right: 5vw;
-    z-index: 1;
+  position: fixed;
+  height: 10vh;
+  min-height: 300px;
+  min-width: 300px;
+  width: 10vw;
+  top: 3vh;
+  right: 5vw;
+  z-index: 1;
 
-    .hud {
-        display: none;
-    }
+  .hud {
+    display: none;
+  }
 }
 
 #map {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 article,
 article-map {
-    display: none; // initially hidden
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    text-align: center;
-    font-size: 10vw; // XX use with the data-fit only?
-    margin-bottom: 100vh;
+  display: none; // initially hidden
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  font-size: 10vw; // XX use with the data-fit only?
+  margin-bottom: 100vh;
 
-    &.debugged {
-        background-color: @soft-highlight;
-    }
+  &.debugged {
+    background-color: @soft-highlight;
+  }
 }
 
 // We put the [data-step] to the root to lower down specificity.
 // So that the user does not have to use important when re-writing rules (or when using Animate.css).
 [data-step] {
-    // &:not([data-step-shown]) {
-    animation: fade-in .5s forwards;
+  // &:not([data-step-shown]) {
+  animation: fade-in 0.5s forwards;
 
-    &.step-hidden {
-        animation: fade-out .3s forwards;
-    }
+  &.step-hidden {
+    animation: fade-out 0.3s forwards;
+  }
 
-    &[data-step-shown]:not([data-step-shown='0']):not([data-step-shown='false']) {
-        // This is also specified under `[data-step]` and not like `[data-step]:not([data-step-shown])` to reduce specificity.
-        animation: unset;
-    }
+  &[data-step-shown]:not([data-step-shown="0"]):not([data-step-shown="false"]) {
+    // This is also specified under `[data-step]` and not like `[data-step]:not([data-step-shown])` to reduce specificity.
+    animation: unset;
+  }
 }
 
 article {
+  img,
+  video {
+    max-width: 100%;
+    max-height: 100%;
 
-    img,
-    video {
-        max-width: 100%;
-        max-height: 100%;
+    &:only-child {
+      // Stretch the small image or video to the full frame size.
+      // If there are more elements, leave the burden to the user.
+      width: 100%;
+      height: 100%;
 
-        &:only-child {
-            // Stretch the small image or video to the full frame size.
-            // If there are more elements, leave the burden to the user.
-            width: 100%;
-            height: 100%;
-
-            object-fit: contain;
-        }
+      object-fit: contain;
     }
+  }
 }
 
-
 article-map {
-    // as the map widget is hard to be moved in the DOM and yet we need to interact it
-    // while keeping the article-map content above
-    // pointer-events: none;
-    // z-index: 1;
-    // color: black;
+  // as the map widget is hard to be moved in the DOM and yet we need to interact it
+  // while keeping the article-map content above
+  // pointer-events: none;
+  // z-index: 1;
+  // color: black;
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fade-out {
-    from {
-        opacity: 1;
-    }
+  from {
+    opacity: 1;
+  }
 
-    to {
-        opacity: 0;
-    }
+  to {
+    opacity: 0;
+  }
 }

@@ -69,7 +69,7 @@ menu #progress .circle-progress-text {
   scale: 0.5;
 }
 #aux_window #slide-wrapper > frame-preview .current-step:before {
-  content: '';
+  content: "";
   position: absolute;
   margin-left: -60px;
   margin-top: 15x;
@@ -107,7 +107,7 @@ frame-preview > article-map [data-step].step-not-yet-visible {
 }
 frame-preview > article.video-thumbnail:before,
 frame-preview > article-map.video-thumbnail:before {
-  content: '\1f3a5';
+  content: "\1f3a5";
   position: absolute;
   width: 100%;
   margin-top: 20%;
@@ -115,7 +115,7 @@ frame-preview > article-map.video-thumbnail:before {
   text-shadow: 0 0 100px white;
 }
 frame-preview article-map:before {
-  content: '🗺';
+  content: "🗺";
   position: absolute;
   margin-top: 20%;
   font-size: 300px;
@@ -126,7 +126,7 @@ frame-preview article-map:before {
 }
 .importable-target::after,
 .importable-target article::after {
-  content: 'Import here';
+  content: "Import here";
   display: block;
   position: absolute;
   background-color: yellow;
@@ -155,7 +155,15 @@ frame-preview article-map:before {
 }
 #hud #control-icons > :hover {
   cursor: pointer;
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #0fa,
+    0 0 82px #0fa,
+    0 0 92px #0fa,
+    0 0 102px #0fa,
+    0 0 151px #0fa;
 }
 #hud #hud-menu {
   display: none;
@@ -348,7 +356,9 @@ article-map.debugged {
 [data-step].step-hidden {
   animation: fade-out 0.3s forwards;
 }
-[data-step][data-step-shown]:not([data-step-shown='0']):not([data-step-shown='false']) {
+[data-step][data-step-shown]:not([data-step-shown="0"]):not(
+    [data-step-shown="false"]
+  ) {
   animation: unset;
 }
 article img,
