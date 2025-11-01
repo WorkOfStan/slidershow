@@ -98,7 +98,7 @@ The `<menu>` is displayed before the presentation starts, unless the `<main>` ha
 
 ## Thumbnails ribbon and grid
 
-While presenting, press <kbd>Alt+J</kbd> to display the thumbnail ribbon or <kbd>Alt+G</kbd> to see full grid. There, you can easily sort the frames. Either move them one by one or sort whole section (by EXIF date or file names). Import new images just by dragging them in.
+While presenting, press <kbd>Alt+J</kbd> to display the thumbnail ribbon or <kbd>Alt+G</kbd> to see full grid. There, you can easily sort the frames. Either move them one by one or sort whole section (by EXIF date or filenames). Import new images just by dragging them in.
 
 ## Auxiliary window
 
@@ -108,7 +108,7 @@ While presenting, you may appraise an auxiliary window on the second monitor tha
 
 Start tagging mode with <kbd>Alt+T</kbd>. Use Numpad to tag the images – think of a tag as a number that corresponds to one of your categories.. Then in the menu, hit <kbd>Alt+Shift+G</kbd> to group the images to the `<section>` according to tags. Export with <kbd>Ctrl+S</kbd>. Sorted & ready!
 
-<sub>Note that the tag is stored in the browser (local storage)[https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage] by the file name so that you do not lose the information at crash. In case you import another photo with the same name, it will inherit the tag from the clashing file.</sub>
+<sub>Note that the tag is stored in the browser [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) by the filename so that you do not lose the information at crash. In case you import another photo with the same name, it will inherit the tag from the clashing file.</sub>
 
 # Structure
 
@@ -372,7 +372,7 @@ How many seconds will it take to change an image zoom step. By default, it takes
 We try to fetch Exif data for images.
 
 - `data-device`: maker and model
-- `data-datetime`: picture time stamp (or fallback to file modification time)
+- `data-datetime`: picture timestamp (or fallback to file modification time)
 - `data-gps`: point on the map (HUD map will be automatically displayed in the corner)
 
 However, this is a non-trivial task since the browser protects your photos privacy. This will work for images you drag and drop inside, images from the web (with the permitive CORS policy). Reading the Exif of your local images you just mention in the document will work only with the browser [CORS disabled](https://stackoverflow.com/questions/4819060/allow-google-chrome-to-use-xmlhttprequest-to-load-a-url-from-a-local-file) – do that only if you know what are you doing.
@@ -681,7 +681,7 @@ Or adjust the green template ([extra/green.css](https://cz-nic.github.io/sliders
 
 # Troubleshooting
 
-## Media not shown: [HEIF](https://caniuse.com/?search=heif), MOV...
+## Media not shown: [HEIF](https://caniuse.com/?search=heif), MOV
 
 Some formats might not be supported in your browser. The is particullary unfortunate for the [JXL](https://caniuse.com/?search=jxl) format, which appears superiour. However is kept restrained by [Google who pushes WebP](https://www.reddit.com/r/programming/comments/1ajq7bj/google_is_once_again_accused_of_snubbing_the_jpeg/) instead.
 
